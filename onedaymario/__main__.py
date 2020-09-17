@@ -7,7 +7,7 @@ BLOCK_SIZE = 64
 H_BLOCKS = 18
 V_BLOCKS = 14
 
-JUMP_FORCE = 3
+JUMP_FORCE = 2
 JUMP_LEN = 8
 
 def load_sprite(img, x, y, w, h, wout=0, hout=0):
@@ -216,10 +216,12 @@ class Simulation:
 		if self.player.vx < 0 and blocks['left']:
 				self.player.x = (1+blocks['left'][0]) * BLOCK_SIZE
 				self.player.vx = - self.player.vx /4
+				self.player.vy = max(self.player.vy, -4)
 			
 		if self.player.vx > 0 and blocks['right']:
 				self.player.x = blocks['right'][0] * BLOCK_SIZE - self.player.w - 1
 				self.player.vx = - self.player.vx /4
+				self.player.vy = max(self.player.vy, -4)
 
 		self.scroll()
 		if self.player.y > (V_BLOCKS-1) * BLOCK_SIZE:
